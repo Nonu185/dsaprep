@@ -51,6 +51,9 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await api.post('/auth/google', { credential, code, redirectUri });
       if (res.data?.success && res.data?.user) {
+        if (res.data.token) {
+          localStorage.setItem('token', res.data.token);
+        }
         setUser(res.data.user);
         return { success: true, user: res.data.user };
       }
@@ -62,13 +65,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Logout action (clears cookie)
+  // Logout action (clears cookie and local token)
   const logout = async () => {
     try {
       await api.post('/auth/logout');
     } catch {
       // Continue client cleanup anyway
     } finally {
+      localStorage.removeItem('token');
       setUser(null);
     }
   };
