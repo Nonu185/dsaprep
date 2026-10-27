@@ -108,7 +108,7 @@ const startServer = async () => {
       console.log(`===============================================`);
       console.log(`  DSA Placement OS Backend Server Running`);
       console.log(`  Port: ${PORT}`);
-      console.log(`  Client Origin: ${allowedOrigin}`);
+      console.log(`  Allowed Origins: ${allowedOrigins.join(', ')}`);
       console.log(`  Database Mode: ${dbInfo.isMemory ? 'Embedded Local Memory' : 'MongoDB Atlas'}`);
       console.log(`===============================================`);
     });
